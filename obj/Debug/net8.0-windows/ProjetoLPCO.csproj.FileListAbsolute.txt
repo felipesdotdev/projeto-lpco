@@ -1,0 +1,17 @@
+C:\dev\cs\ProjetoLPCO\ProjetoLPCO\bin\Debug\net8.0-windows\ProjetoLPCO.exe
+C:\dev\cs\ProjetoLPCO\ProjetoLPCO\bin\Debug\net8.0-windows\ProjetoLPCO.deps.json
+C:\dev\cs\ProjetoLPCO\ProjetoLPCO\bin\Debug\net8.0-windows\ProjetoLPCO.runtimeconfig.json
+C:\dev\cs\ProjetoLPCO\ProjetoLPCO\bin\Debug\net8.0-windows\ProjetoLPCO.dll
+C:\dev\cs\ProjetoLPCO\ProjetoLPCO\bin\Debug\net8.0-windows\ProjetoLPCO.pdb
+C:\dev\cs\ProjetoLPCO\ProjetoLPCO\obj\Debug\net8.0-windows\ProjetoLPCO.Form1.resources
+C:\dev\cs\ProjetoLPCO\ProjetoLPCO\obj\Debug\net8.0-windows\ProjetoLPCO.FormIdentificacao.resources
+C:\dev\cs\ProjetoLPCO\ProjetoLPCO\obj\Debug\net8.0-windows\ProjetoLPCO.csproj.GenerateResource.cache
+C:\dev\cs\ProjetoLPCO\ProjetoLPCO\obj\Debug\net8.0-windows\ProjetoLPCO.GeneratedMSBuildEditorConfig.editorconfig
+C:\dev\cs\ProjetoLPCO\ProjetoLPCO\obj\Debug\net8.0-windows\ProjetoLPCO.AssemblyInfoInputs.cache
+C:\dev\cs\ProjetoLPCO\ProjetoLPCO\obj\Debug\net8.0-windows\ProjetoLPCO.AssemblyInfo.cs
+C:\dev\cs\ProjetoLPCO\ProjetoLPCO\obj\Debug\net8.0-windows\ProjetoLPCO.csproj.CoreCompileInputs.cache
+C:\dev\cs\ProjetoLPCO\ProjetoLPCO\obj\Debug\net8.0-windows\ProjetoLPCO.dll
+C:\dev\cs\ProjetoLPCO\ProjetoLPCO\obj\Debug\net8.0-windows\refint\ProjetoLPCO.dll
+C:\dev\cs\ProjetoLPCO\ProjetoLPCO\obj\Debug\net8.0-windows\ProjetoLPCO.pdb
+C:\dev\cs\ProjetoLPCO\ProjetoLPCO\obj\Debug\net8.0-windows\ProjetoLPCO.genruntimeconfig.cache
+C:\dev\cs\ProjetoLPCO\ProjetoLPCO\obj\Debug\net8.0-windows\ref\ProjetoLPCO.dll

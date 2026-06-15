@@ -1,0 +1,27 @@
+Totem Express - arquivos para colar no ProjetoLPCO
+
+1) Substitua os arquivos existentes:
+- Program.cs
+- Form1.cs
+- Form1.Designer.cs
+- FormIdentificacao.cs
+- FormIdentificacao.Designer.cs
+
+2) Crie os arquivos novos:
+- FormSobre.cs
+- FormSobre.Designer.cs
+- Models/Cliente.cs
+- Models/Produto.cs
+- Models/Adicional.cs
+- Models/ItemCarrinho.cs
+- Models/Pedido.cs
+- Services/ProdutoService.cs
+- Services/PedidoService.cs
+
+3) Rode o projeto.
+O sistema criará automaticamente a pasta Dados com:
+- produtos.txt
+- pedidos.txt
+- contador_pedidos.txt
+
+4) Personalize o texto do FormSobre com os nomes reais dos integrantes do grupo.
