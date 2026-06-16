@@ -1,9 +1,0 @@
-﻿101;X-Tudo;Lanches;28.90;20
-102;X-Burger;Lanches;19.90;30
-103;X-Salada;Lanches;22.50;25
-104;Batata Frita;Acompanhamentos;12.90;35
-105;Nuggets;Acompanhamentos;14.50;18
-106;Refrigerante Lata;Bebidas;7.00;50
-107;Suco Natural;Bebidas;9.90;22
-108;Milkshake;Sobremesas;15.90;12
-109;Brownie;Sobremesas;10.90;16
