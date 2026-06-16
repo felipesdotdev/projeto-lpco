@@ -31,7 +31,7 @@ namespace ProjetoLPCO
             // 
             // pnlContainer
             // 
-            pnlContainer.BackColor = Color.White;
+            pnlContainer.BackColor = Color.FromArgb(17, 20, 29);
             pnlContainer.Controls.Add(lblRodape);
             pnlContainer.Controls.Add(btnAnonimo);
             pnlContainer.Controls.Add(btnEntrarCpf);
@@ -48,18 +48,18 @@ namespace ProjetoLPCO
             // 
             lblTitulo.AutoSize = true;
             lblTitulo.Font = new Font("Segoe UI", 24F, FontStyle.Bold, GraphicsUnit.Point);
-            lblTitulo.ForeColor = Color.FromArgb(24, 24, 27);
+            lblTitulo.ForeColor = Color.White;
             lblTitulo.Location = new Point(42, 34);
             lblTitulo.Name = "lblTitulo";
             lblTitulo.Size = new Size(245, 45);
             lblTitulo.TabIndex = 0;
-            lblTitulo.Text = "Totem Express";
+            lblTitulo.Text = "ALABAMA COMIDARIA";
             // 
             // lblSubtitulo
             // 
             lblSubtitulo.AutoSize = true;
             lblSubtitulo.Font = new Font("Segoe UI", 10F, FontStyle.Regular, GraphicsUnit.Point);
-            lblSubtitulo.ForeColor = Color.FromArgb(100, 100, 110);
+            lblSubtitulo.ForeColor = Color.FromArgb(210, 210, 215);
             lblSubtitulo.Location = new Point(47, 86);
             lblSubtitulo.Name = "lblSubtitulo";
             lblSubtitulo.Size = new Size(396, 19);
@@ -70,7 +70,7 @@ namespace ProjetoLPCO
             // 
             lblInstrucao.AutoSize = true;
             lblInstrucao.Font = new Font("Segoe UI", 10F, FontStyle.Bold, GraphicsUnit.Point);
-            lblInstrucao.ForeColor = Color.FromArgb(39, 39, 42);
+            lblInstrucao.ForeColor = Color.White;
             lblInstrucao.Location = new Point(48, 138);
             lblInstrucao.Name = "lblInstrucao";
             lblInstrucao.Size = new Size(95, 19);
@@ -79,8 +79,9 @@ namespace ProjetoLPCO
             // 
             // mskCPF
             // 
-            mskCPF.BackColor = Color.FromArgb(250, 250, 250);
+            mskCPF.BackColor = Color.FromArgb(11, 13, 21);
             mskCPF.BorderStyle = BorderStyle.FixedSingle;
+            mskCPF.ForeColor = Color.White;
             mskCPF.Font = new Font("Segoe UI", 14F, FontStyle.Regular, GraphicsUnit.Point);
             mskCPF.Location = new Point(48, 166);
             mskCPF.Mask = "000.000.000-00";
@@ -90,7 +91,7 @@ namespace ProjetoLPCO
             // 
             // btnEntrarCpf
             // 
-            btnEntrarCpf.BackColor = Color.FromArgb(24, 24, 27);
+            btnEntrarCpf.BackColor = Color.FromArgb(255, 31, 44);
             btnEntrarCpf.Cursor = Cursors.Hand;
             btnEntrarCpf.FlatAppearance.BorderSize = 0;
             btnEntrarCpf.FlatStyle = FlatStyle.Flat;
@@ -100,23 +101,23 @@ namespace ProjetoLPCO
             btnEntrarCpf.Name = "btnEntrarCpf";
             btnEntrarCpf.Size = new Size(242, 38);
             btnEntrarCpf.TabIndex = 1;
-            btnEntrarCpf.Text = "Entrar com CPF";
+            btnEntrarCpf.Text = "COMEÇAR COM CPF";
             btnEntrarCpf.UseVisualStyleBackColor = false;
             btnEntrarCpf.Click += btnEntrarCpf_Click;
             // 
             // btnAnonimo
             // 
-            btnAnonimo.BackColor = Color.FromArgb(244, 244, 245);
+            btnAnonimo.BackColor = Color.FromArgb(31, 34, 45);
             btnAnonimo.Cursor = Cursors.Hand;
             btnAnonimo.FlatAppearance.BorderColor = Color.FromArgb(220, 220, 225);
             btnAnonimo.FlatStyle = FlatStyle.Flat;
             btnAnonimo.Font = new Font("Segoe UI", 10F, FontStyle.Bold, GraphicsUnit.Point);
-            btnAnonimo.ForeColor = Color.FromArgb(39, 39, 42);
+            btnAnonimo.ForeColor = Color.White;
             btnAnonimo.Location = new Point(48, 220);
             btnAnonimo.Name = "btnAnonimo";
             btnAnonimo.Size = new Size(512, 42);
             btnAnonimo.TabIndex = 2;
-            btnAnonimo.Text = "Continuar como anônimo";
+            btnAnonimo.Text = "FAÇA SEU PEDIDO";
             btnAnonimo.UseVisualStyleBackColor = false;
             btnAnonimo.Click += btnAnonimo_Click;
             // 
@@ -124,7 +125,7 @@ namespace ProjetoLPCO
             // 
             lblRodape.AutoSize = true;
             lblRodape.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
-            lblRodape.ForeColor = Color.FromArgb(120, 120, 130);
+            lblRodape.ForeColor = Color.FromArgb(210, 210, 215);
             lblRodape.Location = new Point(48, 291);
             lblRodape.Name = "lblRodape";
             lblRodape.Size = new Size(343, 15);
@@ -136,7 +137,7 @@ namespace ProjetoLPCO
             AcceptButton = btnEntrarCpf;
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            BackColor = Color.FromArgb(244, 244, 245);
+            BackColor = Color.Black;
             CancelButton = btnAnonimo;
             ClientSize = new Size(800, 450);
             Controls.Add(pnlContainer);
@@ -144,7 +145,7 @@ namespace ProjetoLPCO
             MaximizeBox = false;
             Name = "FormIdentificacao";
             StartPosition = FormStartPosition.CenterScreen;
-            Text = "Identificação do Cliente";
+            Text = "Alabama Comidaria - Identificação";
             pnlContainer.ResumeLayout(false);
             pnlContainer.PerformLayout();
             ResumeLayout(false);

@@ -94,15 +94,17 @@ namespace ProjetoLPCO.Services
 
             List<string> produtosPadrao = new List<string>
             {
-                "101;X-Tudo;Lanches;28.90;20",
-                "102;X-Burger;Lanches;19.90;30",
-                "103;X-Salada;Lanches;22.50;25",
-                "104;Batata Frita;Acompanhamentos;12.90;35",
-                "105;Nuggets;Acompanhamentos;14.50;18",
-                "106;Refrigerante Lata;Bebidas;7.00;50",
-                "107;Suco Natural;Bebidas;9.90;22",
-                "108;Milkshake;Sobremesas;15.90;12",
-                "109;Brownie;Sobremesas;10.90;16"
+                "101;Alabama Apimentado;Promoções;20.90;20",
+                "102;Alabama Bacon Duplo;Promoções;26.90;20",
+                "103;Alabama Clássico;Burger Tradicional;15.90;30",
+                "104;Alabama Filé;Burger Especial;22.90;18",
+                "105;Alabama Kids;Burger Tradicional;14.90;25",
+                "106;Alabama Supremo;Burger Especial;22.90;16",
+                "107;Alabama Tudo;Burger Especial;25.90;18",
+                "108;Alabama Vegano;Burger Especial;27.90;12",
+                "109;Suco Laranja 1L;Sucos e Refri;9.90;30",
+                "110;Suco Uva 1L;Sucos e Refri;9.90;30",
+                "111;Suco Morango 1L;Sucos e Refri;9.90;30"
             };
 
             File.WriteAllLines(arquivoProdutos, produtosPadrao, Encoding.UTF8);
