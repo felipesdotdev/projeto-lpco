@@ -15,6 +15,14 @@ namespace ProjetoLPCO
         private List<ItemCarrinho> carrinho = new List<ItemCarrinho>();
         private Produto? produtoSelecionado;
         private int indiceItemSelecionado = -1;
+        private FlowLayoutPanel? painelProdutosVisual;
+        private FlowLayoutPanel? painelCategoriasVisual;
+        private Panel? barraTotalVisual;
+        private readonly Dictionary<string, Button> botoesCategorias = new Dictionary<string, Button>();
+        private readonly Color corFundo = Color.FromArgb(11, 13, 21);
+        private readonly Color corPainel = Color.FromArgb(17, 20, 29);
+        private readonly Color corPainelClaro = Color.FromArgb(31, 34, 45);
+        private readonly Color corVermelho = Color.FromArgb(255, 31, 44);
 
         public Form1(Cliente cliente)
         {
@@ -23,6 +31,7 @@ namespace ProjetoLPCO
             clienteAtual = cliente;
 
             ConfigurarGrids();
+            AplicarInterfaceTotem();
             CarregarSistema();
         }
 
@@ -70,6 +79,47 @@ namespace ProjetoLPCO
             }
 
             cmbCategoria.SelectedIndex = 0;
+
+            if (painelCategoriasVisual != null)
+            {
+                painelCategoriasVisual.Controls.Clear();
+                botoesCategorias.Clear();
+                painelCategoriasVisual.Controls.Add(new Label
+                {
+                    Text = "MENU",
+                    Size = new Size(150, 46),
+                    ForeColor = Color.White,
+                    Font = new Font("Segoe UI", 14F, FontStyle.Bold),
+                    TextAlign = ContentAlignment.MiddleCenter
+                });
+
+                foreach (object item in cmbCategoria.Items)
+                {
+                    string texto = item.ToString() == "Todas" ? "Promoções" : item.ToString() ?? string.Empty;
+                    Button botao = new Button
+                    {
+                        Text = texto,
+                        Tag = item.ToString(),
+                        Size = new Size(150, 42),
+                        FlatStyle = FlatStyle.Flat,
+                        BackColor = corPainel,
+                        ForeColor = Color.White,
+                        TextAlign = ContentAlignment.MiddleLeft,
+                        Font = new Font("Segoe UI", 10F),
+                        Cursor = Cursors.Hand
+                    };
+                    botao.FlatAppearance.BorderSize = 0;
+                    botao.Click += (sender, args) =>
+                    {
+                        cmbCategoria.SelectedItem = ((Button)sender!).Tag?.ToString();
+                        AtualizarCategoriaAtiva();
+                    };
+                    botoesCategorias[item.ToString() ?? string.Empty] = botao;
+                    painelCategoriasVisual.Controls.Add(botao);
+                }
+
+                AtualizarCategoriaAtiva();
+            }
         }
 
         private void FiltrarProdutos()
@@ -107,6 +157,8 @@ namespace ProjetoLPCO
                     dgvProdutos.Rows[linha].DefaultCellStyle.ForeColor = Color.Gray;
                 }
             }
+
+            AtualizarCardsProdutos(lista);
         }
 
         private void AtualizarCarrinho()
@@ -129,6 +181,7 @@ namespace ProjetoLPCO
 
             lblTotal.Text = "Total: " + total.ToString("C2", cultura);
             lblItens.Text = quantidadeItens + " item(ns) na sacola";
+            btnFinalizar.Text = "PAGAR " + total.ToString("C2", cultura).ToUpper();
         }
 
         private void SelecionarProduto(int codigo)
@@ -197,6 +250,180 @@ namespace ProjetoLPCO
             chkBaconExtra.Checked = item.Adicionais.Any(a => a.Nome == "Bacon extra");
             chkMolhoEspecial.Checked = item.Adicionais.Any(a => a.Nome == "Molho especial");
             chkSemCebola.Checked = item.Adicionais.Any(a => a.Nome == "Sem cebola");
+        }
+
+
+        private void AplicarInterfaceTotem()
+        {
+            BackColor = Color.Black;
+            ClientSize = new Size(1184, 760);
+            MinimumSize = new Size(1000, 720);
+            Text = "Alabama Comidaria - Autoatendimento";
+
+            menuPrincipal.Visible = false;
+            pnlHeader.Visible = false;
+
+            pnlCardapio.BackColor = corPainel;
+            pnlCardapio.Location = new Point(150, 24);
+            pnlCardapio.Size = new Size(620, 670);
+            pnlCardapio.BorderStyle = BorderStyle.FixedSingle;
+
+            foreach (Control controle in pnlCardapio.Controls)
+            {
+                controle.Visible = false;
+            }
+
+            Label logo = CriarLogo();
+            pnlCardapio.Controls.Add(logo);
+
+            painelCategoriasVisual = new FlowLayoutPanel
+            {
+                Location = new Point(24, 132),
+                Size = new Size(160, 360),
+                BackColor = corPainel,
+                FlowDirection = FlowDirection.TopDown,
+                WrapContents = false,
+                Visible = true
+            };
+            pnlCardapio.Controls.Add(painelCategoriasVisual);
+
+            Label titulo = new Label
+            {
+                Text = "Promoções",
+                Location = new Point(210, 142),
+                Size = new Size(240, 34),
+                Font = new Font("Segoe UI", 18F, FontStyle.Bold),
+                ForeColor = Color.White,
+                Visible = true
+            };
+            pnlCardapio.Controls.Add(titulo);
+
+            PictureBox banner = new PictureBox
+            {
+                Location = new Point(210, 24),
+                Size = new Size(380, 104),
+                SizeMode = PictureBoxSizeMode.Zoom,
+                BackColor = Color.Black,
+                Image = ObterImagemProduto("Alabama Bacon Duplo"),
+                Visible = true
+            };
+            pnlCardapio.Controls.Add(banner);
+
+            painelProdutosVisual = new FlowLayoutPanel
+            {
+                Location = new Point(208, 184),
+                Size = new Size(386, 396),
+                AutoScroll = true,
+                BackColor = corPainel,
+                Visible = true
+            };
+            pnlCardapio.Controls.Add(painelProdutosVisual);
+
+            lblProdutoSelecionado.Location = new Point(24, 505);
+            lblProdutoSelecionado.Size = new Size(160, 42);
+            lblProdutoSelecionado.ForeColor = Color.White;
+            lblProdutoSelecionado.Visible = true;
+            lblQuantidade.Location = new Point(24, 552);
+            lblQuantidade.ForeColor = Color.White;
+            lblQuantidade.Visible = true;
+            nudQuantidade.Location = new Point(24, 574);
+            nudQuantidade.Size = new Size(72, 30);
+            nudQuantidade.Visible = true;
+            btnAdicionar.Location = new Point(112, 568);
+            btnAdicionar.Size = new Size(182, 42);
+            btnAdicionar.BackColor = corVermelho;
+            btnAdicionar.Text = "Adicionar";
+            btnAdicionar.Visible = true;
+            btnAlterarItem.Location = new Point(306, 568);
+            btnAlterarItem.Size = new Size(120, 42);
+            btnAlterarItem.BackColor = corPainelClaro;
+            btnAlterarItem.ForeColor = Color.White;
+            btnAlterarItem.Text = "Alterar";
+            btnAlterarItem.Visible = true;
+
+            barraTotalVisual = new Panel { Location = new Point(0, 612), Size = new Size(620, 58), BackColor = corVermelho, Visible = true };
+            pnlCardapio.Controls.Add(barraTotalVisual);
+            lblTotal.Parent = barraTotalVisual;
+            lblTotal.Location = new Point(110, 12);
+            lblTotal.Size = new Size(260, 32);
+            lblTotal.ForeColor = Color.White;
+            lblTotal.TextAlign = ContentAlignment.MiddleLeft;
+            lblTotal.Visible = true;
+
+            pnlSacola.BackColor = corPainel;
+            pnlSacola.Location = new Point(790, 84);
+            pnlSacola.Size = new Size(360, 570);
+            lblSacola.Text = "Carrinho";
+            lblSacola.ForeColor = Color.White;
+            lblSacolaSubtitulo.ForeColor = Color.White;
+            dgvCarrinho.BackgroundColor = corPainel;
+            dgvCarrinho.DefaultCellStyle.BackColor = corPainel;
+            dgvCarrinho.DefaultCellStyle.ForeColor = Color.White;
+            dgvCarrinho.DefaultCellStyle.SelectionBackColor = corPainelClaro;
+            dgvCarrinho.ColumnHeadersDefaultCellStyle.BackColor = corPainelClaro;
+            dgvCarrinho.ColumnHeadersDefaultCellStyle.ForeColor = Color.White;
+            btnFinalizar.BackColor = corVermelho;
+            btnFinalizar.Location = new Point(52, 470);
+            btnFinalizar.Size = new Size(250, 56);
+            btnRemoverItem.BackColor = corPainelClaro;
+            btnRemoverItem.ForeColor = Color.White;
+            btnLimpar.BackColor = corVermelho;
+            btnLimpar.ForeColor = Color.White;
+            lblItens.ForeColor = Color.White;
+            lblPagamento.ForeColor = Color.White;
+        }
+
+        private Label CriarLogo()
+        {
+            return new Label
+            {
+                Text = "ALABAMA\nCOMIDARIA",
+                Location = new Point(42, 28),
+                Size = new Size(96, 80),
+                BorderStyle = BorderStyle.FixedSingle,
+                TextAlign = ContentAlignment.MiddleCenter,
+                Font = new Font("Segoe UI", 10F, FontStyle.Bold),
+                ForeColor = Color.White,
+                BackColor = Color.Black,
+                Visible = true
+            };
+        }
+
+        private void AtualizarCardsProdutos(List<Produto> lista)
+        {
+            if (painelProdutosVisual == null) return;
+            painelProdutosVisual.Controls.Clear();
+            foreach (Produto produto in lista)
+            {
+                Panel card = new Panel { Size = new Size(112, 118), Margin = new Padding(6), BackColor = corFundo, Cursor = Cursors.Hand, Tag = produto.Codigo };
+                PictureBox foto = new PictureBox { Location = new Point(0, 0), Size = new Size(112, 70), SizeMode = PictureBoxSizeMode.Zoom, Image = ObterImagemProduto(produto.Nome), BackColor = Color.FromArgb(210, 220, 175) };
+                Label nome = new Label { Text = produto.Nome, Location = new Point(4, 73), Size = new Size(104, 18), TextAlign = ContentAlignment.MiddleCenter, Font = new Font("Segoe UI", 7F, FontStyle.Bold), ForeColor = Color.White };
+                Label preco = new Label { Text = "A partir de " + produto.Preco.ToString("C2", cultura), Location = new Point(4, 94), Size = new Size(104, 18), TextAlign = ContentAlignment.MiddleCenter, Font = new Font("Segoe UI", 6.5F), ForeColor = Color.White };
+                card.Controls.Add(foto); card.Controls.Add(nome); card.Controls.Add(preco);
+                card.Click += CardProduto_Click; foto.Click += CardProduto_Click; nome.Click += CardProduto_Click; preco.Click += CardProduto_Click;
+                painelProdutosVisual.Controls.Add(card);
+            }
+        }
+
+        private void CardProduto_Click(object? sender, EventArgs e)
+        {
+            Control? c = sender as Control;
+            while (c != null && c.Tag is not int) c = c.Parent;
+            if (c?.Tag is int codigo) SelecionarProduto(codigo);
+        }
+
+        private Image? ObterImagemProduto(string nome)
+        {
+            string slug = nome.ToLowerInvariant().Replace(" ", "-");
+            slug = slug.Replace("á", "a").Replace("ã", "a").Replace("â", "a").Replace("é", "e").Replace("í", "i").Replace("ó", "o").Replace("ú", "u");
+            string[] caminhos =
+            {
+                Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "images", slug + ".png"),
+                Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "..", "..", "..", "images", slug + ".png"),
+                Path.Combine(Environment.CurrentDirectory, "images", slug + ".png")
+            };
+            string? caminho = caminhos.FirstOrDefault(File.Exists);
+            return caminho == null ? null : Image.FromFile(caminho);
         }
 
         private int QuantidadeNoCarrinho(int codigoProduto, int? ignorarIndice = null)
@@ -418,7 +645,19 @@ namespace ProjetoLPCO
 
         private void cmbCategoria_SelectedIndexChanged(object sender, EventArgs e)
         {
+            AtualizarCategoriaAtiva();
             FiltrarProdutos();
+        }
+
+        private void AtualizarCategoriaAtiva()
+        {
+            string categoria = cmbCategoria.SelectedItem?.ToString() ?? "Todas";
+            foreach (KeyValuePair<string, Button> par in botoesCategorias)
+            {
+                bool ativo = par.Key == categoria;
+                par.Value.ForeColor = ativo ? corVermelho : Color.White;
+                par.Value.Font = new Font("Segoe UI", 10F, ativo ? FontStyle.Bold : FontStyle.Regular);
+            }
         }
 
         private void btnPesquisar_Click(object sender, EventArgs e)
