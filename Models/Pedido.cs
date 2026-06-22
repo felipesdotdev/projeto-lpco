@@ -1,4 +1,4 @@
-namespace ProjetoLPCO.Models
+﻿namespace ProjetoLPCO.Models
 {
     public class Pedido
     {
@@ -23,3 +23,5 @@ namespace ProjetoLPCO.Models
         }
     }
 }
+
+

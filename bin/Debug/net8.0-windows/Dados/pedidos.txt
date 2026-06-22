@@ -1,0 +1,61 @@
+﻿========================================
+PEDIDO Nº 1001
+Data/Hora: 22/06/2026 13:17:56
+Cliente: Cliente identificado - CPF: 111,111,111-11
+Pagamento: Dinheiro
+Itens:
+- Alabama Apimentado | Qtd: 1 | Unitário: R$ 20,90 | Subtotal: R$ 20,90
+  Alterações: Sem alterações
+- Alabama Clássico | Qtd: 1 | Unitário: R$ 15,90 | Subtotal: R$ 15,90
+  Alterações: Sem alterações
+- Alabama Vegano | Qtd: 1 | Unitário: R$ 27,90 | Subtotal: R$ 27,90
+  Alterações: Sem alterações
+TOTAL: R$ 64,70
+========================================
+
+========================================
+PEDIDO Nº 1002
+Data/Hora: 22/06/2026 13:24:05
+Cliente: Cliente identificado - CPF: 111,111,111-11
+Pagamento: Cartão de débito
+Itens:
+- Alabama Apimentado | Qtd: 1 | Unitário: R$ 20,90 | Subtotal: R$ 20,90
+  Alterações: Sem alterações
+- Alabama Bacon Duplo | Qtd: 2 | Unitário: R$ 26,90 | Subtotal: R$ 53,80
+  Alterações: Sem alterações
+TOTAL: R$ 74,70
+========================================
+
+========================================
+PEDIDO Nº 1003
+Data/Hora: 22/06/2026 13:28:01
+Cliente: Cliente identificado - CPF: 111,111,111-11
+Pagamento: Pix
+Itens:
+- Alabama Apimentado | Qtd: 1 | Unitário: R$ 20,90 | Subtotal: R$ 20,90
+  Alterações: Sem alterações
+TOTAL: R$ 20,90
+========================================
+
+========================================
+PEDIDO Nº 1004
+Data/Hora: 22/06/2026 13:28:17
+Cliente: Cliente identificado - CPF: 111,111,111-11
+Pagamento: Cartão de débito
+Itens:
+- Alabama Apimentado | Qtd: 1 | Unitário: R$ 20,90 | Subtotal: R$ 20,90
+  Alterações: Sem alterações
+TOTAL: R$ 20,90
+========================================
+
+========================================
+PEDIDO Nº 1005
+Data/Hora: 22/06/2026 13:28:47
+Cliente: Cliente identificado - CPF: 123,123,123-12
+Pagamento: Cartão de crédito
+Itens:
+- Alabama Apimentado | Qtd: 1 | Unitário: R$ 20,90 | Subtotal: R$ 20,90
+  Alterações: Sem alterações
+TOTAL: R$ 20,90
+========================================
+

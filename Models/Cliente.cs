@@ -1,10 +1,11 @@
-namespace ProjetoLPCO.Models
+﻿namespace ProjetoLPCO.Models
 {
     public class Cliente
     {
         public string Nome { get; set; }
         public string CPF { get; set; }
         public bool Anonimo { get; set; }
+        public bool TemCpf => !string.IsNullOrWhiteSpace(CPF);
 
         public Cliente(string nome, string cpf, bool anonimo)
         {
@@ -34,3 +35,4 @@ namespace ProjetoLPCO.Models
         }
     }
 }
+

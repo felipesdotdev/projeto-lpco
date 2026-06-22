@@ -1,4 +1,4 @@
-namespace ProjetoLPCO.Models
+﻿namespace ProjetoLPCO.Models
 {
     public class ItemCarrinho
     {
@@ -39,3 +39,5 @@ namespace ProjetoLPCO.Models
         }
     }
 }
+
+

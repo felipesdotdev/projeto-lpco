@@ -1,0 +1,11 @@
+﻿101;Alabama Apimentado;Promoções;20.90;15
+102;Alabama Bacon Duplo;Promoções;26.90;18
+103;Alabama Clássico;Burger Tradicional;15.90;29
+104;Alabama Filé;Burger Especial;22.90;18
+105;Alabama Kids;Burger Tradicional;14.90;25
+106;Alabama Supremo;Burger Especial;22.90;16
+107;Alabama Tudo;Burger Especial;25.90;18
+108;Alabama Vegano;Burger Especial;27.90;11
+109;Suco Laranja 1L;Sucos e Refri;9.90;30
+110;Suco Uva 1L;Sucos e Refri;9.90;30
+111;Suco Morango 1L;Sucos e Refri;9.90;30

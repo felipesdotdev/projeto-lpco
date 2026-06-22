@@ -1,4 +1,4 @@
-using ProjetoLPCO.Models;
+﻿using ProjetoLPCO.Models;
 using ProjetoLPCO.Services;
 using System.Globalization;
 
@@ -18,11 +18,15 @@ namespace ProjetoLPCO
         private FlowLayoutPanel? painelProdutosVisual;
         private FlowLayoutPanel? painelCategoriasVisual;
         private Panel? barraTotalVisual;
+        private Label? lblTituloCategoriaVisual;
         private readonly Dictionary<string, Button> botoesCategorias = new Dictionary<string, Button>();
-        private readonly Color corFundo = Color.FromArgb(11, 13, 21);
-        private readonly Color corPainel = Color.FromArgb(17, 20, 29);
-        private readonly Color corPainelClaro = Color.FromArgb(31, 34, 45);
-        private readonly Color corVermelho = Color.FromArgb(255, 31, 44);
+        private readonly Dictionary<int, Panel> cardsProdutos = new Dictionary<int, Panel>();
+        private readonly Color corFundo = Color.FromArgb(245, 246, 248);
+        private readonly Color corPainel = Color.White;
+        private readonly Color corPainelClaro = Color.FromArgb(236, 239, 243);
+        private readonly Color corVermelho = Color.FromArgb(32, 82, 149);
+        private readonly Color corTexto = Color.FromArgb(26, 32, 44);
+        private readonly Color corTextoSecundario = Color.FromArgb(100, 116, 139);
 
         public Form1(Cliente cliente)
         {
@@ -88,14 +92,14 @@ namespace ProjetoLPCO
                 {
                     Text = "MENU",
                     Size = new Size(150, 46),
-                    ForeColor = Color.White,
+                    ForeColor = corTexto,
                     Font = new Font("Segoe UI", 14F, FontStyle.Bold),
                     TextAlign = ContentAlignment.MiddleCenter
                 });
 
                 foreach (object item in cmbCategoria.Items)
                 {
-                    string texto = item.ToString() == "Todas" ? "Promoções" : item.ToString() ?? string.Empty;
+                    string texto = item.ToString() == "Todas" ? "Todos" : item.ToString() ?? string.Empty;
                     Button botao = new Button
                     {
                         Text = texto,
@@ -103,7 +107,7 @@ namespace ProjetoLPCO
                         Size = new Size(150, 42),
                         FlatStyle = FlatStyle.Flat,
                         BackColor = corPainel,
-                        ForeColor = Color.White,
+                        ForeColor = corTexto,
                         TextAlign = ContentAlignment.MiddleLeft,
                         Font = new Font("Segoe UI", 10F),
                         Cursor = Cursors.Hand
@@ -198,6 +202,7 @@ namespace ProjetoLPCO
             nudQuantidade.Maximum = Math.Max(1, produtoSelecionado.Estoque);
             nudQuantidade.Value = 1;
             LimparAdicionais();
+            AtualizarProdutoSelecionadoVisual();
         }
 
         private List<Adicional> ObterAdicionaisSelecionados()
@@ -255,7 +260,7 @@ namespace ProjetoLPCO
 
         private void AplicarInterfaceTotem()
         {
-            BackColor = Color.Black;
+            BackColor = corFundo;
             ClientSize = new Size(1184, 760);
             MinimumSize = new Size(1000, 720);
             Text = "Alabama Comidaria - Autoatendimento";
@@ -263,7 +268,7 @@ namespace ProjetoLPCO
             menuPrincipal.Visible = false;
             pnlHeader.Visible = false;
 
-            pnlCardapio.BackColor = corPainel;
+            pnlCardapio.BackColor = Color.White;
             pnlCardapio.Location = new Point(150, 24);
             pnlCardapio.Size = new Size(620, 670);
             pnlCardapio.BorderStyle = BorderStyle.FixedSingle;
@@ -287,23 +292,23 @@ namespace ProjetoLPCO
             };
             pnlCardapio.Controls.Add(painelCategoriasVisual);
 
-            Label titulo = new Label
+            lblTituloCategoriaVisual = new Label
             {
-                Text = "Promoções",
+                Text = "Todos",
                 Location = new Point(210, 142),
                 Size = new Size(240, 34),
                 Font = new Font("Segoe UI", 18F, FontStyle.Bold),
-                ForeColor = Color.White,
+                ForeColor = corTexto,
                 Visible = true
             };
-            pnlCardapio.Controls.Add(titulo);
+            pnlCardapio.Controls.Add(lblTituloCategoriaVisual);
 
             PictureBox banner = new PictureBox
             {
                 Location = new Point(210, 24),
                 Size = new Size(380, 104),
                 SizeMode = PictureBoxSizeMode.Zoom,
-                BackColor = Color.Black,
+                BackColor = Color.White,
                 Image = ObterImagemProduto("Alabama Bacon Duplo"),
                 Visible = true
             };
@@ -319,12 +324,14 @@ namespace ProjetoLPCO
             };
             pnlCardapio.Controls.Add(painelProdutosVisual);
 
-            lblProdutoSelecionado.Location = new Point(24, 505);
-            lblProdutoSelecionado.Size = new Size(160, 42);
-            lblProdutoSelecionado.ForeColor = Color.White;
+            lblProdutoSelecionado.AutoSize = false;
+            lblProdutoSelecionado.Location = new Point(24, 502);
+            lblProdutoSelecionado.Size = new Size(160, 44);
+            lblProdutoSelecionado.ForeColor = corTexto;
+            lblProdutoSelecionado.TextAlign = ContentAlignment.MiddleLeft;
             lblProdutoSelecionado.Visible = true;
             lblQuantidade.Location = new Point(24, 552);
-            lblQuantidade.ForeColor = Color.White;
+            lblQuantidade.ForeColor = corTexto;
             lblQuantidade.Visible = true;
             nudQuantidade.Location = new Point(24, 574);
             nudQuantidade.Size = new Size(72, 30);
@@ -336,8 +343,8 @@ namespace ProjetoLPCO
             btnAdicionar.Visible = true;
             btnAlterarItem.Location = new Point(306, 568);
             btnAlterarItem.Size = new Size(120, 42);
-            btnAlterarItem.BackColor = corPainelClaro;
-            btnAlterarItem.ForeColor = Color.White;
+            btnAlterarItem.BackColor = Color.FromArgb(236, 239, 243);
+            btnAlterarItem.ForeColor = corTexto;
             btnAlterarItem.Text = "Alterar";
             btnAlterarItem.Visible = true;
 
@@ -350,27 +357,41 @@ namespace ProjetoLPCO
             lblTotal.TextAlign = ContentAlignment.MiddleLeft;
             lblTotal.Visible = true;
 
-            pnlSacola.BackColor = corPainel;
+            pnlSacola.BackColor = Color.White;
             pnlSacola.Location = new Point(790, 84);
             pnlSacola.Size = new Size(360, 570);
             lblSacola.Text = "Carrinho";
-            lblSacola.ForeColor = Color.White;
-            lblSacolaSubtitulo.ForeColor = Color.White;
+            lblSacola.ForeColor = corTexto;
+            lblSacolaSubtitulo.ForeColor = corTextoSecundario;
+            dgvCarrinho.Location = new Point(26, 112);
+            dgvCarrinho.Size = new Size(308, 260);
             dgvCarrinho.BackgroundColor = corPainel;
-            dgvCarrinho.DefaultCellStyle.BackColor = corPainel;
-            dgvCarrinho.DefaultCellStyle.ForeColor = Color.White;
-            dgvCarrinho.DefaultCellStyle.SelectionBackColor = corPainelClaro;
-            dgvCarrinho.ColumnHeadersDefaultCellStyle.BackColor = corPainelClaro;
-            dgvCarrinho.ColumnHeadersDefaultCellStyle.ForeColor = Color.White;
+            dgvCarrinho.DefaultCellStyle.BackColor = Color.White;
+            dgvCarrinho.DefaultCellStyle.ForeColor = corTexto;
+            dgvCarrinho.DefaultCellStyle.SelectionBackColor = corVermelho;
+            dgvCarrinho.DefaultCellStyle.SelectionForeColor = Color.White;
+            dgvCarrinho.ColumnHeadersDefaultCellStyle.BackColor = Color.FromArgb(236, 239, 243);
+            dgvCarrinho.ColumnHeadersDefaultCellStyle.ForeColor = corTexto;
+            lblItens.Location = new Point(26, 386);
+            lblItens.Size = new Size(220, 20);
+            btnRemoverItem.Location = new Point(26, 416);
+            btnRemoverItem.Size = new Size(145, 42);
+            btnLimpar.Location = new Point(189, 416);
+            btnLimpar.Size = new Size(145, 42);
+            lblPagamento.Location = new Point(26, 474);
+            lblPagamento.Size = new Size(180, 20);
+            cmbPagamento.Location = new Point(26, 498);
+            cmbPagamento.Size = new Size(308, 25);
             btnFinalizar.BackColor = corVermelho;
-            btnFinalizar.Location = new Point(52, 470);
-            btnFinalizar.Size = new Size(250, 56);
-            btnRemoverItem.BackColor = corPainelClaro;
-            btnRemoverItem.ForeColor = Color.White;
+            btnFinalizar.ForeColor = Color.White;
+            btnFinalizar.Location = new Point(26, 530);
+            btnFinalizar.Size = new Size(308, 42);
+            btnRemoverItem.BackColor = Color.FromArgb(236, 239, 243);
+            btnRemoverItem.ForeColor = corTexto;
             btnLimpar.BackColor = corVermelho;
             btnLimpar.ForeColor = Color.White;
-            lblItens.ForeColor = Color.White;
-            lblPagamento.ForeColor = Color.White;
+            lblItens.ForeColor = corTextoSecundario;
+            lblPagamento.ForeColor = corTexto;
         }
 
         private Label CriarLogo()
@@ -383,8 +404,8 @@ namespace ProjetoLPCO
                 BorderStyle = BorderStyle.FixedSingle,
                 TextAlign = ContentAlignment.MiddleCenter,
                 Font = new Font("Segoe UI", 10F, FontStyle.Bold),
-                ForeColor = Color.White,
-                BackColor = Color.Black,
+                ForeColor = corTexto,
+                BackColor = Color.White,
                 Visible = true
             };
         }
@@ -393,15 +414,51 @@ namespace ProjetoLPCO
         {
             if (painelProdutosVisual == null) return;
             painelProdutosVisual.Controls.Clear();
+            cardsProdutos.Clear();
             foreach (Produto produto in lista)
             {
-                Panel card = new Panel { Size = new Size(112, 118), Margin = new Padding(6), BackColor = corFundo, Cursor = Cursors.Hand, Tag = produto.Codigo };
-                PictureBox foto = new PictureBox { Location = new Point(0, 0), Size = new Size(112, 70), SizeMode = PictureBoxSizeMode.Zoom, Image = ObterImagemProduto(produto.Nome), BackColor = Color.FromArgb(210, 220, 175) };
-                Label nome = new Label { Text = produto.Nome, Location = new Point(4, 73), Size = new Size(104, 18), TextAlign = ContentAlignment.MiddleCenter, Font = new Font("Segoe UI", 7F, FontStyle.Bold), ForeColor = Color.White };
-                Label preco = new Label { Text = "A partir de " + produto.Preco.ToString("C2", cultura), Location = new Point(4, 94), Size = new Size(104, 18), TextAlign = ContentAlignment.MiddleCenter, Font = new Font("Segoe UI", 6.5F), ForeColor = Color.White };
+                Panel card = new Panel { Size = new Size(112, 118), Margin = new Padding(6), BackColor = Color.White, Cursor = Cursors.Hand, Tag = produto.Codigo, BorderStyle = BorderStyle.FixedSingle };
+                PictureBox foto = new PictureBox { Location = new Point(0, 0), Size = new Size(112, 70), SizeMode = PictureBoxSizeMode.Zoom, Image = ObterImagemProduto(produto.Nome), BackColor = Color.White };
+                Label nome = new Label { Text = produto.Nome, Location = new Point(4, 73), Size = new Size(104, 18), TextAlign = ContentAlignment.MiddleCenter, Font = new Font("Segoe UI", 7F, FontStyle.Bold), ForeColor = corTexto };
+                Label preco = new Label { Text = "A partir de " + produto.Preco.ToString("C2", cultura), Location = new Point(4, 94), Size = new Size(104, 18), TextAlign = ContentAlignment.MiddleCenter, Font = new Font("Segoe UI", 6.5F), ForeColor = corTexto };
+                card.Paint += CardProduto_Paint;
                 card.Controls.Add(foto); card.Controls.Add(nome); card.Controls.Add(preco);
                 card.Click += CardProduto_Click; foto.Click += CardProduto_Click; nome.Click += CardProduto_Click; preco.Click += CardProduto_Click;
+                cardsProdutos[produto.Codigo] = card;
                 painelProdutosVisual.Controls.Add(card);
+            }
+
+            AtualizarProdutoSelecionadoVisual();
+        }
+
+        private void CardProduto_Paint(object? sender, PaintEventArgs e)
+        {
+            if (sender is not Panel card || card.Tag is not int codigo)
+            {
+                return;
+            }
+
+            bool selecionado = produtoSelecionado?.Codigo == codigo;
+            using Pen pen = new Pen(selecionado ? corVermelho : Color.FromArgb(203, 213, 225), selecionado ? 3 : 1);
+            e.Graphics.DrawRectangle(pen, new Rectangle(0, 0, card.Width - 1, card.Height - 1));
+        }
+
+        private void AtualizarProdutoSelecionadoVisual()
+        {
+            foreach (KeyValuePair<int, Panel> par in cardsProdutos)
+            {
+                bool selecionado = produtoSelecionado?.Codigo == par.Key;
+                par.Value.BackColor = selecionado ? Color.FromArgb(231, 240, 253) : Color.White;
+
+                foreach (Control controle in par.Value.Controls)
+                {
+                    if (controle is PictureBox)
+                    {
+                        controle.BackColor = selecionado ? Color.FromArgb(231, 240, 253) : Color.White;
+                    }
+                }
+
+                par.Value.Invalidate();
             }
         }
 
@@ -415,7 +472,7 @@ namespace ProjetoLPCO
         private Image? ObterImagemProduto(string nome)
         {
             string slug = nome.ToLowerInvariant().Replace(" ", "-");
-            slug = slug.Replace("á", "a").Replace("ã", "a").Replace("â", "a").Replace("é", "e").Replace("í", "i").Replace("ó", "o").Replace("ú", "u");
+            slug = slug.Replace("á", "a").Replace("â", "a").Replace("ã", "a").Replace("é", "e").Replace("í", "i").Replace("ó", "o").Replace("ú", "u");
             string[] caminhos =
             {
                 Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "images", slug + ".png"),
@@ -423,7 +480,40 @@ namespace ProjetoLPCO
                 Path.Combine(Environment.CurrentDirectory, "images", slug + ".png")
             };
             string? caminho = caminhos.FirstOrDefault(File.Exists);
-            return caminho == null ? null : Image.FromFile(caminho);
+            if (caminho == null)
+            {
+                return null;
+            }
+
+            using Image imagemOriginal = Image.FromFile(caminho);
+            return RemoverFundoVerde(imagemOriginal);
+        }
+
+        private static Image RemoverFundoVerde(Image imagemOriginal)
+        {
+            Bitmap bitmap = new Bitmap(imagemOriginal);
+
+            for (int y = 0; y < bitmap.Height; y++)
+            {
+                for (int x = 0; x < bitmap.Width; x++)
+                {
+                    Color pixel = bitmap.GetPixel(x, y);
+                    bool fundoVerdeClaro =
+                        pixel.R >= 180 &&
+                        pixel.G >= 185 &&
+                        pixel.B >= 135 &&
+                        pixel.G >= pixel.R &&
+                        pixel.G >= pixel.B &&
+                        pixel.G - pixel.B <= 90;
+
+                    if (fundoVerdeClaro)
+                    {
+                        bitmap.SetPixel(x, y, Color.White);
+                    }
+                }
+            }
+
+            return bitmap;
         }
 
         private int QuantidadeNoCarrinho(int codigoProduto, int? ignorarIndice = null)
@@ -568,8 +658,34 @@ namespace ProjetoLPCO
                 return;
             }
 
+            Cliente clienteDoPedido = clienteAtual;
+            DialogResult cpfNaNota = MessageBox.Show(
+                "Deseja colocar CPF na nota?",
+                "CPF na nota",
+                MessageBoxButtons.YesNo,
+                MessageBoxIcon.Question
+            );
+
+            if (cpfNaNota == DialogResult.Yes)
+            {
+                if (clienteAtual.TemCpf)
+                {
+                    clienteDoPedido = clienteAtual;
+                }
+                else
+                {
+                    using FormCpfNota formCpfNota = new FormCpfNota();
+                    if (formCpfNota.ShowDialog(this) != DialogResult.OK)
+                    {
+                        return;
+                    }
+
+                    clienteDoPedido = Cliente.CriarComCpf(formCpfNota.CpfInformado);
+                }
+            }
+
             int numeroPedido = pedidoService.GerarNumeroPedido();
-            Pedido pedido = new Pedido(numeroPedido, clienteAtual);
+            Pedido pedido = new Pedido(numeroPedido, clienteDoPedido);
             pedido.FormaPagamento = cmbPagamento.Text;
 
             foreach (ItemCarrinho item in carrinho)
@@ -636,6 +752,7 @@ namespace ProjetoLPCO
             nudQuantidade.Maximum = Math.Max(1, item.Produto.Estoque);
             nudQuantidade.Value = item.Quantidade;
             MarcarAdicionaisDoItem(item);
+            AtualizarProdutoSelecionadoVisual();
         }
 
         private void txtPesquisa_TextChanged(object sender, EventArgs e)
@@ -652,11 +769,17 @@ namespace ProjetoLPCO
         private void AtualizarCategoriaAtiva()
         {
             string categoria = cmbCategoria.SelectedItem?.ToString() ?? "Todas";
+            if (lblTituloCategoriaVisual != null)
+            {
+                lblTituloCategoriaVisual.Text = categoria == "Todas" ? "Todos" : categoria;
+            }
+
             foreach (KeyValuePair<string, Button> par in botoesCategorias)
             {
                 bool ativo = par.Key == categoria;
-                par.Value.ForeColor = ativo ? corVermelho : Color.White;
+                par.Value.ForeColor = ativo ? corVermelho : corTexto;
                 par.Value.Font = new Font("Segoe UI", 10F, ativo ? FontStyle.Bold : FontStyle.Regular);
+                par.Value.BackColor = ativo ? Color.FromArgb(231, 240, 253) : Color.White;
             }
         }
 
@@ -715,3 +838,9 @@ namespace ProjetoLPCO
         }
     }
 }
+
+
+
+
+
+

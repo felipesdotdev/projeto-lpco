@@ -1,4 +1,4 @@
-namespace ProjetoLPCO
+﻿namespace ProjetoLPCO
 {
     partial class Form1
     {
@@ -221,7 +221,7 @@ namespace ProjetoLPCO
             btnAdicionar.Name = "btnAdicionar";
             btnAdicionar.Size = new Size(203, 38);
             btnAdicionar.TabIndex = 8;
-            btnAdicionar.Text = "Adicionar à sacola";
+            btnAdicionar.Text = "Adicionar Ã  sacola";
             btnAdicionar.UseVisualStyleBackColor = false;
             btnAdicionar.Click += btnAdicionar_Click;
             // 
@@ -658,3 +658,4 @@ namespace ProjetoLPCO
         private ComboBox cmbPagamento;
     }
 }
+
